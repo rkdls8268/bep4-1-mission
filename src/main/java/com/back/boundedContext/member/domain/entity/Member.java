@@ -1,4 +1,4 @@
-package com.back.boundedContext.member.entity;
+package com.back.boundedContext.member.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

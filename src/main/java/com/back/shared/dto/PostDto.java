@@ -1,7 +1,7 @@
 package com.back.shared.dto;
 
 
-import com.back.boundedContext.post.entity.Post;
+import com.back.boundedContext.post.domain.entity.Post;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

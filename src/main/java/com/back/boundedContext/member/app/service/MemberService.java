@@ -1,8 +1,8 @@
-package com.back.boundedContext.member.service;
+package com.back.boundedContext.member.app.service;
 
-import com.back.boundedContext.member.entity.Member;
+import com.back.boundedContext.member.domain.entity.Member;
 import com.back.global.exception.DomainException;
-import com.back.boundedContext.member.repository.MemberRepository;
+import com.back.boundedContext.member.out.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,10 @@
-package com.back.boundedContext.post.service;
+package com.back.boundedContext.post.app.service;
 
-import com.back.boundedContext.member.entity.Member;
-import com.back.boundedContext.post.entity.Post;
+import com.back.boundedContext.member.domain.entity.Member;
+import com.back.boundedContext.post.domain.entity.Post;
 import com.back.global.eventPublisher.EventPublisher;
 import com.back.global.exception.DomainException;
-import com.back.boundedContext.post.repository.PostRepository;
+import com.back.boundedContext.post.out.repository.PostRepository;
 import com.back.shared.dto.PostDto;
 import com.back.shared.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;
