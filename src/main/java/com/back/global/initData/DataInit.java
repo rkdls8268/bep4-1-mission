@@ -1,11 +1,11 @@
 package com.back.global.initData;
 
-import com.back.boundedContext.post.domain.entity.Comment;
-import com.back.boundedContext.member.domain.entity.Member;
-import com.back.boundedContext.post.domain.entity.Post;
-import com.back.boundedContext.post.app.service.CommentService;
-import com.back.boundedContext.member.app.service.MemberService;
-import com.back.boundedContext.post.app.service.PostService;
+import com.back.boundedContext.post.domain.Comment;
+import com.back.boundedContext.member.domain.Member;
+import com.back.boundedContext.post.domain.Post;
+import com.back.boundedContext.post.app.CommentService;
+import com.back.boundedContext.member.app.MemberService;
+import com.back.boundedContext.post.app.PostService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;

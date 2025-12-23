@@ -1,7 +1,7 @@
-package com.back.boundedContext.post.domain.entity;
+package com.back.boundedContext.post.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
-import com.back.boundedContext.member.domain.entity.Member;
+import com.back.boundedContext.member.domain.Member;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

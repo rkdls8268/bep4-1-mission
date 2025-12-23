@@ -1,6 +1,6 @@
-package com.back.boundedContext.post.domain.entity;
+package com.back.boundedContext.post.domain;
 
-import com.back.boundedContext.member.domain.entity.Member;
+import com.back.boundedContext.member.domain.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
