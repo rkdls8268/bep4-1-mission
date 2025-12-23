@@ -24,4 +24,9 @@ public class MemberService {
     return memberRepository.save(new Member(username, password, nickname));
   }
 
+  public Member findByUsername(String username) {
+    return memberRepository.findByUsername(username)
+      .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 username 입니다."));
+  }
+
 }
