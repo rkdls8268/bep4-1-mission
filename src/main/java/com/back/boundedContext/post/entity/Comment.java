@@ -1,8 +1,9 @@
-package com.back.entity;
+package com.back.boundedContext.post.entity;
 
+import com.back.boundedContext.member.entity.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jpa.Entity.BaseIdAndTime;
+import com.back.global.jpa.Entity.BaseIdAndTime;
 import lombok.NoArgsConstructor;
 
 @Entity

@@ -1,6 +1,7 @@
-package com.back.entity;
+package com.back.boundedContext.post.entity;
 
 import static jakarta.persistence.FetchType.LAZY;
+import com.back.boundedContext.member.entity.Member;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import jpa.Entity.BaseIdAndTime;
+import com.back.global.jpa.Entity.BaseIdAndTime;
 import lombok.NoArgsConstructor;
 
 @Entity

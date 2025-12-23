@@ -1,4 +1,4 @@
-package jpa.Entity;
+package com.back.global.jpa.Entity;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import jakarta.persistence.EntityListeners;
