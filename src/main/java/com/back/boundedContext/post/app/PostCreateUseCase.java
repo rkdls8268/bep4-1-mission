@@ -2,9 +2,8 @@ package com.back.boundedContext.post.app;
 
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
-import com.back.global.eventPublisher.EventPublisher;
-import com.back.global.exception.DomainException;
 import com.back.boundedContext.post.out.PostRepository;
+import com.back.global.eventPublisher.EventPublisher;
 import com.back.shared.dto.PostDto;
 import com.back.shared.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;
@@ -12,24 +11,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostCreateUseCase {
 
   private final PostRepository postRepository;
   private final EventPublisher eventPublisher;
-
-  public long count() {
-    return postRepository.count();
-  }
 
   public Post create(Member member, String title, String content) {
     Post post = new Post(member, title, content);
     post = postRepository.save(post);
     eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
     return post;
-  }
-
-  public Post findByPostId(int postId) {
-    return postRepository.findById(postId)
-      .orElseThrow(() -> new DomainException("409-3", "존재하지 않는 post 입니다."));
   }
 }

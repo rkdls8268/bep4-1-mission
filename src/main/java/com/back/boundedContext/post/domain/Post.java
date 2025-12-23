@@ -2,6 +2,8 @@ package com.back.boundedContext.post.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
 import com.back.boundedContext.member.domain.Member;
+import com.back.shared.dto.CommentDto;
+import com.back.shared.event.CommentCreatedEvent;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,13 +39,14 @@ public class Post extends BaseIdAndTime {
    * 엔티티에 로직을 두는 경우: 하나의 aggregate root 안에서 끝나는 규칙 및 상태 전이인 경우 선호
    * 서비스에 로직을 두는 경우: 여러 aggregate 및 외부 시스템을 아우르거나 트랜잭션 관리가 필요한 케이스인 경우 선호.
    */
-//  public Comment addComment(Member member, String conten) {
-//    Comment comment = new Comment(member, this, content);
-//    comments.add(comment);
-//    return comment;
-//  }
-//
-//  public boolean hasComments() {
-//    return !comments.isEmpty();
-//  }
+  public Comment addComment(Member member, String content) {
+    Comment comment = new Comment(member, this, content);
+    comments.add(comment);
+    publishEvent(new CommentCreatedEvent(new CommentDto(comment)));
+    return comment;
+  }
+
+  public boolean hasComments() {
+    return !comments.isEmpty();
+  }
 }
