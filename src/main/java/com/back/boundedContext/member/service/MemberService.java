@@ -29,4 +29,9 @@ public class MemberService {
       .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 username 입니다."));
   }
 
+  public Member findById(int id) {
+    return memberRepository.findById(id)
+      .orElseThrow(() -> new DomainException("409-4", "존재하지 않는 id 입니다."));
+  }
+
 }

@@ -4,6 +4,9 @@ import com.back.boundedContext.post.entity.Comment;
 import com.back.boundedContext.member.entity.Member;
 import com.back.boundedContext.post.entity.Post;
 import com.back.boundedContext.post.repository.CommentRepository;
+import com.back.global.eventPublisher.EventPublisher;
+import com.back.shared.dto.CommentDto;
+import com.back.shared.event.CommentCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class CommentService {
 
   private final CommentRepository commentRepository;
+  private final EventPublisher eventPublisher;
 
   public long count() {
     return commentRepository.count();
@@ -19,8 +23,8 @@ public class CommentService {
 
   public Comment create(Member member, Post post, String content) {
     Comment comment = new Comment(member, post, content);
-    // 댓글 생성 시 활동 점수 1점 증가
-    member.increaseActivityScore(1);
-    return commentRepository.save(comment);
+    comment = commentRepository.save(comment);
+    eventPublisher.publish(new CommentCreatedEvent(new CommentDto(comment)));
+    return comment;
   }
 }

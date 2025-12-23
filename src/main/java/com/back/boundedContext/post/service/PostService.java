@@ -2,8 +2,11 @@ package com.back.boundedContext.post.service;
 
 import com.back.boundedContext.member.entity.Member;
 import com.back.boundedContext.post.entity.Post;
+import com.back.global.eventPublisher.EventPublisher;
 import com.back.global.exception.DomainException;
 import com.back.boundedContext.post.repository.PostRepository;
+import com.back.shared.dto.PostDto;
+import com.back.shared.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
   private final PostRepository postRepository;
+  private final EventPublisher eventPublisher;
 
   public long count() {
     return postRepository.count();
@@ -19,9 +23,9 @@ public class PostService {
 
   public Post create(Member member, String title, String content) {
     Post post = new Post(member, title, content);
-    // 게시글 생성 시 활동점수 3점 증가
-    member.increaseActivityScore(3);
-    return postRepository.save(post);
+    post = postRepository.save(post);
+    eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
+    return post;
   }
 
   public Post findByPostId(int postId) {

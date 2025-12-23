@@ -1,6 +1,22 @@
 package com.back.global.jpa.Entity;
 
-// 모든 엔티티들의 조상
-public class BaseEntity {
+import com.back.global.config.GlobalConfig;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+// 모든 엔티티들의 조상
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+@Getter
+public class BaseEntity {
+  public String getModelTypeCode() {
+    return this.getClass().getSimpleName();
+  }
+
+  // GlobalConfig 에서 setter 로 초기화해놓은 것을 나중에 entity 에서 getter로 사용할 수 있도록 BaseEntity 에서 만들어 놓음
+  protected void publishEvent(Object event) {
+    GlobalConfig.getEventPublisher().publish(event);
+  }
 }

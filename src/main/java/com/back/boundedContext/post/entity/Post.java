@@ -10,10 +10,12 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import com.back.global.jpa.Entity.BaseIdAndTime;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Post extends BaseIdAndTime {
   @ManyToOne(fetch = LAZY)
   private Member member;
