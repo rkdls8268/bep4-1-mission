@@ -18,6 +18,9 @@ public class CommentService {
   }
 
   public Comment create(Member member, Post post, String content) {
-    return commentRepository.save(new Comment(member, post, content));
+    Comment comment = new Comment(member, post, content);
+    // 댓글 생성 시 활동 점수 1점 증가
+    member.increaseActivityScore(1);
+    return commentRepository.save(comment);
   }
 }

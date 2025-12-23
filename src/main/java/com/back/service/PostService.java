@@ -18,7 +18,10 @@ public class PostService {
   }
 
   public Post create(Member member, String title, String content) {
-    return postRepository.save(new Post(member, title, content));
+    Post post = new Post(member, title, content);
+    // 게시글 생성 시 활동점수 3점 증가
+    member.increaseActivityScore(3);
+    return postRepository.save(post);
   }
 
   public Post findByPostId(int postId) {
