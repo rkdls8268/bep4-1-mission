@@ -42,3 +42,25 @@ DDD란 결합도는 낮추고 응집도를 높일 수 있도록 각 도메인별
     ├── 📁 repository: 데이터를 저장하고 조회하는 영역
     └── 📁 apiClient: 외부 서비스와 연동하는 영역
 ```
+
+### RsData 도입
+RsData(ReSponse data) : API 응답을 구조화하기 위해 사용하는 객체
+* 일관된 응답 구조
+* 상태 코드와 메시지 포함
+* 데이터 타입의 유연성: 제네릭을 사용하여 다양한 데이터 타입 포함 가능
+* 가독성 향상
+``` 
+// 예시
+public class RsData<T> {
+  private final String resultCode;
+  private final String msg;
+  private final T data;
+
+  public RsData(String resultCode, String msg) {
+    this(resultCode, msg, null);
+  }
+}
+```
+
+### 타 모듈간 메서드 호출 금지를 위한 ApiClient 활용
+
