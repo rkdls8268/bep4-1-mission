@@ -4,12 +4,15 @@ import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.exception.DomainException;
+import com.back.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostFacade {
 
   private final PostCreateUseCase postCreateUseCase;
@@ -21,8 +24,10 @@ public class PostFacade {
   }
 
   @Transactional(readOnly = true)
-  public Post create(Member member, String title, String content) {
-    return postCreateUseCase.create(member, title, content);
+  public RsData<Post> create(Member member, String title, String content) {
+    RsData<Post> post = postCreateUseCase.create(member, title, content);
+    log.info("[msg] : {}", post.getMsg());
+    return post;
   }
 
   @Transactional(readOnly = true)
