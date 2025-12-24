@@ -1,8 +1,8 @@
 package com.back.boundedContext.member.in;
 
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
-import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.member.app.MemberFacade;
+import com.back.boundedContext.member.domain.Member;
 import com.back.shared.event.CommentCreatedEvent;
 import com.back.shared.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;

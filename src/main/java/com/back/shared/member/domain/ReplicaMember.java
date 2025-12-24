@@ -1,6 +1,5 @@
 package com.back.shared.member.domain;
 
-import static lombok.AccessLevel.PROTECTED;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import lombok.Setter;
 
 @MappedSuperclass
 @Getter
-@Setter(value = PROTECTED)
+@Setter
 @NoArgsConstructor
 public abstract class ReplicaMember extends BaseMember {
   @Id
