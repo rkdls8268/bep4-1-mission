@@ -40,7 +40,7 @@ public class MemberFacade {
   @Transactional(readOnly = true)
   public Member findById(int id) {
     return memberRepository.findById(id)
-      .orElseThrow(() -> new DomainException("409-4", "존재하지 않는 id 입니다."));
+      .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 id 입니다."));
   }
 
   public String getRandomSecureTip() {

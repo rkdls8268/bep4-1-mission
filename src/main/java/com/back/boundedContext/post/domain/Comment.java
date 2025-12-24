@@ -1,6 +1,5 @@
 package com.back.boundedContext.post.domain;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.global.jpa.Entity.BaseIdAndTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,13 +16,13 @@ import lombok.NoArgsConstructor;
 public class Comment extends BaseIdAndTime {
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private Member member;
+  private PostMember member;
   @ManyToOne(fetch = FetchType.LAZY)
   private Post post;
   @Column(columnDefinition = "TEXT")
   private String content;
 
-  public Comment(Member member, Post post, String content) {
+  public Comment(PostMember member, Post post, String content) {
     this.member = member;
     this.post = post;
     this.content = content;

@@ -1,6 +1,5 @@
 package com.back.boundedContext.post.app;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
 import com.back.boundedContext.post.out.PostMemberRepository;
@@ -28,7 +27,7 @@ public class PostFacade {
   }
 
   @Transactional(readOnly = true)
-  public RsData<Post> create(Member member, String title, String content) {
+  public RsData<Post> create(PostMember member, String title, String content) {
     RsData<Post> post = postCreateUseCase.create(member, title, content);
     log.info("[msg] : {}", post.getMsg());
     return post;
@@ -37,7 +36,7 @@ public class PostFacade {
   @Transactional(readOnly = true)
   public Post findByPostId(int postId) {
     return postRepository.findById(postId)
-      .orElseThrow(() -> new DomainException("409-3", "존재하지 않는 post 입니다."));
+      .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 post 입니다."));
   }
 
   public void syncMember(MemberDto member) {
@@ -51,5 +50,11 @@ public class PostFacade {
       member.getActivityScore()
     );
     postMemberRepository.save(postMember);
+  }
+
+  @Transactional(readOnly = true)
+  public PostMember findPostMemberByUsername(String username) {
+    return postMemberRepository.findByUsername(username)
+      .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 회원입니다."));
   }
 }

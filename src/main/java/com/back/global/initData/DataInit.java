@@ -4,6 +4,7 @@ import com.back.boundedContext.member.app.MemberFacade;
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
+import com.back.boundedContext.post.domain.PostMember;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
@@ -52,9 +53,9 @@ public class DataInit {
   public void makeBasePosts() {
     if (postFacade.count() > 0) return;
 
-    Member user1Member = memberFacade.findByUsername("user1");
-    Member user2Member = memberFacade.findByUsername("user2");
-    Member user3Member = memberFacade.findByUsername("user3");
+    PostMember user1Member = postFacade.findPostMemberByUsername("user1");
+    PostMember user2Member = postFacade.findPostMemberByUsername("user2");
+    PostMember user3Member = postFacade.findPostMemberByUsername("user3");
 
     Post post1 = postFacade.create(user1Member, "title1", "content1").getData();
     Post post2 = postFacade.create(user1Member, "title2", "content2").getData();
@@ -66,9 +67,9 @@ public class DataInit {
 
   @Transactional
   public void makeBaseComments() {
-    Member user1Member = memberFacade.findByUsername("user1");
-    Member user2Member = memberFacade.findByUsername("user2");
-    Member user3Member = memberFacade.findByUsername("user3");
+    PostMember user1Member = postFacade.findPostMemberByUsername("user1");
+    PostMember user2Member = postFacade.findPostMemberByUsername("user2");
+    PostMember user3Member = postFacade.findPostMemberByUsername("user3");
 
     Post post1 = postFacade.findByPostId(1);
     Post post2 = postFacade.findByPostId(2);
