@@ -26,5 +26,5 @@ public abstract class SourceMember extends BaseMember {
   private LocalDateTime modifyDate;
 
   public SourceMember(String username, String password, String nickname) {
-    super(username, password, nickname);
+    super(username, password, nickname, 0);
   }}
