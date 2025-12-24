@@ -1,7 +1,6 @@
-package com.back.global.initData;
+package com.back.boundedContext.post.in;
 
-import com.back.boundedContext.member.app.MemberFacade;
-import com.back.boundedContext.member.domain.Member;
+
 import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
@@ -16,37 +15,22 @@ import org.springframework.context.annotation.Lazy;
 @Slf4j
 // DataInit 실행되는 시점 -> 빌드 다 되고 초반에 실행
 // 실행 초기에 사용할 데이터 미리 생성하는 단계
-public class DataInit {
-  private final DataInit self;
-  private final MemberFacade memberFacade;
+public class PostDataInit {
+  private final PostDataInit self;
   private final PostFacade postFacade;
 
   // proxy 를 활용해서 생성한 것이라 생각하면 됨
-  public DataInit(@Lazy DataInit self, MemberFacade memberFacade, PostFacade postFacade) {
+  public PostDataInit(@Lazy PostDataInit self, PostFacade postFacade) {
     this.self = self;
-    this.memberFacade = memberFacade;
     this.postFacade = postFacade;
   }
 
   @Bean
-  public ApplicationRunner baseInitDataRunner() {
+  public ApplicationRunner PostDataInitRunner() {
     return args -> {
-      self.makeBaseMembers();
       self.makeBasePosts();
       self.makeBaseComments();
     };
-  }
-
-  @Transactional
-  public void makeBaseMembers() {
-    if (memberFacade.count() > 0) return;
-
-    Member systemMember = memberFacade.join("system", "1234", "시스템").getData();
-    Member holdingMember = memberFacade.join("holding", "1234", "홀딩").getData();
-    Member adminMember = memberFacade.join("admin", "1234", "관리자").getData();
-    Member user1Member = memberFacade.join("user1", "1234", "유저1").getData();
-    Member user2Member = memberFacade.join("user2", "1234", "유저2").getData();
-    Member user3Member = memberFacade.join("user3", "1234", "유저3").getData();
   }
 
   @Transactional
@@ -57,12 +41,12 @@ public class DataInit {
     PostMember user2Member = postFacade.findPostMemberByUsername("user2");
     PostMember user3Member = postFacade.findPostMemberByUsername("user3");
 
-    Post post1 = postFacade.create(user1Member, "title1", "content1").getData();
-    Post post2 = postFacade.create(user1Member, "title2", "content2").getData();
-    Post post3 = postFacade.create(user1Member, "title3", "content3").getData();
-    Post post4 = postFacade.create(user2Member, "title4", "content4").getData();
-    Post post5 = postFacade.create(user2Member, "title5", "content5").getData();
-    Post post6 = postFacade.create(user3Member, "title6", "content6").getData();
+    postFacade.create(user1Member, "title1", "content1");
+    postFacade.create(user1Member, "title2", "content2");
+    postFacade.create(user1Member, "title3", "content3");
+    postFacade.create(user2Member, "title4", "content4");
+    postFacade.create(user2Member, "title5", "content5");
+    postFacade.create(user3Member, "title6", "content6");
   }
 
   @Transactional
