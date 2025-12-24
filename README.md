@@ -63,4 +63,28 @@ public class RsData<T> {
 ```
 
 ### 타 모듈간 메서드 호출 금지를 위한 ApiClient 활용
+* WebClient: Spring WebFlux 에서 제공하는 HTTP 요청을 보내기 위해 사용하는 인터페이스
+* RestClient: 동기식 HTTP Client
+  
+![모듈간_호출](./src/main/resources/image/ddd_1.png)
+* post가 생성 시 member의 활동점수 3점 증가
+1. Post 모듈 내 publisher 에 의해 이벤트 발행
+2. EventListener가 이벤트를 캐치해서 이벤트를 처리함
 
+* post가 생성 시 member 정책에 해당하는 내용 같이 전달
+1. Post 모듈 내에서 공통 모듈에 있는 ApiClient 를 호출
+2. ApiClient 에서 memberController 로 HTTP 요청
+3. controller가 요청받은 내용 처리
+
+
+
+### 현재 프로젝트 구조 (모놀리식 구조지만 모듈별로 분리)
+![프로젝트 구조](./src/main/resources/image/project_structure.png)
+
+
+### DB 이중화 (Replication)
+* 고가용성 보장: DB 서버의 장애 시, 다른 복제본 서버가 즉시 서비스 역할을 할 수 있어 서비스 중단 시간을 최소화
+* 성능 향상: 읽기 전용 작업을 여러 복제본에 분산시켜, DB 성능을 향상
+* 데이터 무결성 보장: 여러 장소에 데이터를 복제하여, 데이터 손실 시 복구할 수 있는 가능성 높임
+
+현재 프로젝트에서는 회원의 조회가 압도적으로 많아 회원이 생성될 때나 수정될 때 같이 동기화 시켜줌 (member -> post_member)
