@@ -6,7 +6,7 @@ import com.back.boundedContext.post.out.PostMemberRepository;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.exception.DomainException;
 import com.back.global.rsData.RsData;
-import com.back.shared.dto.MemberDto;
+import com.back.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

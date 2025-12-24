@@ -1,4 +1,4 @@
-package com.back.shared.dto;
+package com.back.shared.member.dto;
 
 import com.back.boundedContext.member.domain.Member;
 import java.time.LocalDateTime;

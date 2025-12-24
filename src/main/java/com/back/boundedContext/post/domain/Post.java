@@ -2,8 +2,8 @@ package com.back.boundedContext.post.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
 import com.back.global.jpa.Entity.BaseIdAndTime;
-import com.back.shared.dto.CommentDto;
-import com.back.shared.event.CommentCreatedEvent;
+import com.back.shared.post.dto.CommentDto;
+import com.back.shared.post.event.CommentCreatedEvent;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

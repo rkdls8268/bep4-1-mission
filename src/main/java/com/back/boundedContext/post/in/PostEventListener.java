@@ -2,8 +2,8 @@ package com.back.boundedContext.post.in;
 
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 import com.back.boundedContext.post.app.PostFacade;
-import com.back.shared.event.MemberJoinedEvent;
-import com.back.shared.event.MemberModifiedEvent;
+import com.back.shared.member.event.MemberJoinedEvent;
+import com.back.shared.member.event.MemberModifiedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

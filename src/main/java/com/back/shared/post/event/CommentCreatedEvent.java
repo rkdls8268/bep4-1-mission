@@ -1,6 +1,6 @@
-package com.back.shared.event;
+package com.back.shared.post.event;
 
-import com.back.shared.dto.CommentDto;
+import com.back.shared.post.dto.CommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
