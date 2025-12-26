@@ -39,9 +39,9 @@ public class PostDataInit {
   public void makeBasePosts() {
     if (postFacade.count() > 0) return;
 
-    PostMember user1Member = postFacade.findPostMemberByUsername("user1");
-    PostMember user2Member = postFacade.findPostMemberByUsername("user2");
-    PostMember user3Member = postFacade.findPostMemberByUsername("user3");
+    PostMember user1Member = postFacade.findMemberByUsername("user1");
+    PostMember user2Member = postFacade.findMemberByUsername("user2");
+    PostMember user3Member = postFacade.findMemberByUsername("user3");
 
     postFacade.create(user1Member, "title1", "content1");
     postFacade.create(user1Member, "title2", "content2");
@@ -53,9 +53,9 @@ public class PostDataInit {
 
   @Transactional
   public void makeBaseComments() {
-    PostMember user1Member = postFacade.findPostMemberByUsername("user1");
-    PostMember user2Member = postFacade.findPostMemberByUsername("user2");
-    PostMember user3Member = postFacade.findPostMemberByUsername("user3");
+    PostMember user1Member = postFacade.findMemberByUsername("user1");
+    PostMember user2Member = postFacade.findMemberByUsername("user2");
+    PostMember user3Member = postFacade.findMemberByUsername("user3");
 
     Post post1 = postFacade.findByPostId(1);
     Post post2 = postFacade.findByPostId(2);

@@ -17,6 +17,7 @@ public class CashSyncMemberUseCase {
   private final EventPublisher eventPublisher;
 
   public CashMember syncMember(MemberDto memberDto) {
+    boolean isNew = !cashMemberRepository.existsById(memberDto.getId());
     CashMember cashMember = new CashMember(
       memberDto.getId(),
       memberDto.getCreateDate(),
@@ -28,7 +29,6 @@ public class CashSyncMemberUseCase {
     );
     cashMember = cashMemberRepository.save(cashMember);
 
-    boolean isNew = !cashMemberRepository.existsById(memberDto.getId());
     // wallet 생성
     if (isNew) {
       eventPublisher.publish(new CashMemberCreatedEvent(new CashMemberDto(cashMember)));
