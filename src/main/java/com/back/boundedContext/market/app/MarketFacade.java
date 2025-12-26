@@ -53,4 +53,14 @@ public class MarketFacade {
   public RsData<Cart> createCart(MarketMemberDto customer) {
     return marketCreateCartUseCase.createCart(customer);
   }
+
+  @Transactional
+  public Cart findCartByCustomer(MarketMember customer) {
+    return marketSupport.findCartByCustomer(customer);
+  }
+
+  @Transactional
+  public Product findProductById(int id) {
+    return marketSupport.findProductById(id);
+  }
 }
