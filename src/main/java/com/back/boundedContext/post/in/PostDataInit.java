@@ -10,6 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 @Slf4j
@@ -26,6 +27,7 @@ public class PostDataInit {
   }
 
   @Bean
+  @Order(2)
   public ApplicationRunner PostDataInitRunner() {
     return args -> {
       self.makeBasePosts();
