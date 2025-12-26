@@ -4,6 +4,7 @@ import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
 import com.back.global.rsData.RsData;
 import com.back.shared.member.dto.MemberDto;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ public class PostFacade {
     return postSupport.findByPostId(postId);
   }
 
+  @Transactional
   public void syncMember(MemberDto member) {
     postSyncMemberUseCase.syncMember(member);
   }
@@ -38,5 +40,10 @@ public class PostFacade {
   @Transactional(readOnly = true)
   public PostMember findMemberByUsername(String username) {
     return postSupport.findMemberByUsername(username);
+  }
+
+  @Transactional(readOnly = true)
+  public List<Post> findByOrderByIdDesc() {
+    return postSupport.findByOrderByIdDesc();
   }
 }

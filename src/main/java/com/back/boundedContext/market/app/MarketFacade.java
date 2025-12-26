@@ -15,4 +15,5 @@ public class MarketFacade {
   public MarketMember syncMember(MemberDto member) {
     return marketSyncMemberUseCase.syncMember(member);
   }
+
 }

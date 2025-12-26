@@ -5,17 +5,20 @@ import com.back.boundedContext.post.domain.Post;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+// 기본 생성자가 존재하지 않아 Json -> java 객체 역직렬화 시 문제 발생
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class PostDto {
-  private final int id;
-  private final LocalDateTime createDate;
-  private final LocalDateTime modifyDate;
-  private final int memberId;
-  private final String userName;
-  private final String title;
-  private final String content;
+  private int id;
+  private LocalDateTime createDate;
+  private LocalDateTime modifyDate;
+  private int memberId;
+  private String userName;
+  private String title;
+  private String content;
 
   public PostDto(Post post) {
     this(

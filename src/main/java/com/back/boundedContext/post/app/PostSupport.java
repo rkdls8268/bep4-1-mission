@@ -5,6 +5,7 @@ import com.back.boundedContext.post.domain.PostMember;
 import com.back.boundedContext.post.out.PostMemberRepository;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.exception.DomainException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,5 +28,9 @@ public class PostSupport {
   public PostMember findMemberByUsername(String username) {
     return postMemberRepository.findByUsername(username)
       .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 회원입니다."));
+  }
+
+  public List<Post> findByOrderByIdDesc() {
+    return postRepository.findByOrderByIdDesc();
   }
 }
