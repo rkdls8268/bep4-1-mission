@@ -1,8 +1,12 @@
 package com.back.boundedContext.market.in;
 
 import com.back.boundedContext.market.app.MarketFacade;
+import com.back.boundedContext.market.domain.MarketMember;
+import com.back.boundedContext.market.domain.Product;
+import com.back.shared.post.dto.PostDto;
 import com.back.shared.post.out.PostApiClient;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +35,7 @@ public class MarketDataInit {
   public ApplicationRunner MarketDataInitRunner() {
     return args -> {
       self.makeBaseMarkets();
+      self.makeBaseProducts();
     };
   }
 
@@ -38,5 +43,82 @@ public class MarketDataInit {
   public void makeBaseMarkets() {
     postApiClient.getPosts()
       .forEach(it -> System.out.println("post.getId() : " + it.getId()));
+  }
+
+  @Transactional
+  public void makeBaseProducts() {
+    if (marketFacade.countProducts() > 0) return;
+
+    MarketMember user1MarketMember = marketFacade.findMemberByUsername("user1");
+    MarketMember user2MarketMember = marketFacade.findMemberByUsername("user2");
+    MarketMember user3MarketMember = marketFacade.findMemberByUsername("user3");
+
+    List<PostDto> posts = postApiClient.getPosts();
+    PostDto post1 = posts.get(5);
+    PostDto post2 = posts.get(4);
+    PostDto post3 = posts.get(3);
+    PostDto post4 = posts.get(2);
+    PostDto post5 = posts.get(1);
+    PostDto post6 = posts.get(0);
+
+    Product product1 = marketFacade.createProduct(
+      user1MarketMember,
+      "Post",
+      post1.getId(),
+      post1.getTitle(),
+      post1.getContent(),
+      10_000,
+      10_000
+    );
+
+    Product product2 = marketFacade.createProduct(
+      user1MarketMember,
+      "Post",
+      post2.getId(),
+      post2.getTitle(),
+      post2.getContent(),
+      15_000,
+      15_000
+    );
+
+    Product product3 = marketFacade.createProduct(
+      user1MarketMember,
+      "Post",
+      post3.getId(),
+      post3.getTitle(),
+      post3.getContent(),
+      20_000,
+      20_000
+    );
+
+    Product product4 = marketFacade.createProduct(
+      user2MarketMember,
+      "Post",
+      post4.getId(),
+      post4.getTitle(),
+      post4.getContent(),
+      25_000,
+      25_000
+    );
+
+    Product product5 = marketFacade.createProduct(
+      user2MarketMember,
+      "Post",
+      post5.getId(),
+      post5.getTitle(),
+      post5.getContent(),
+      30_000,
+      30_000
+    );
+
+    Product product6 = marketFacade.createProduct(
+      user3MarketMember,
+      "Post",
+      post6.getId(),
+      post6.getTitle(),
+      post6.getContent(),
+      35_000,
+      35_000
+    );
   }
 }
