@@ -3,6 +3,7 @@ package com.back.boundedContext.market.app;
 import com.back.boundedContext.market.domain.Cart;
 import com.back.boundedContext.market.domain.Order;
 import com.back.boundedContext.market.out.OrderRepository;
+import com.back.global.exception.DomainException;
 import com.back.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class MarketCreateOrderUseCase {
       "%d번 주문이 생성되었습니다.".formatted(order.getId()),
       order
     );
+  }
+
+  public Order findOrderById(int id) {
+    return orderRepository.findById(id)
+      .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 Order입니다."));
   }
 }

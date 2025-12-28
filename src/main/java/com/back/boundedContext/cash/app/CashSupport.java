@@ -1,10 +1,12 @@
 package com.back.boundedContext.cash.app;
 
 import com.back.boundedContext.cash.domain.CashMember;
+import com.back.boundedContext.cash.domain.CashPolicy;
 import com.back.boundedContext.cash.domain.Wallet;
 import com.back.boundedContext.cash.out.CashMemberRepository;
 import com.back.boundedContext.cash.out.WalletRepository;
 import com.back.global.exception.DomainException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,5 +24,14 @@ public class CashSupport {
   public Wallet findByHolder(CashMember holder) {
     return walletRepository.findByHolderId(holder.getId())
       .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 wallet 입니다."));
+  }
+
+
+  public Optional<Wallet> findWalletByHolderId(int holderId) {
+    return walletRepository.findByHolderId(holderId);
+  }
+
+  public Optional<Wallet> findHoldingWallet() {
+    return walletRepository.findByHolderId(CashPolicy.HOLDING_MEMBER_ID);
   }
 }

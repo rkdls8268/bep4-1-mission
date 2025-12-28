@@ -4,6 +4,8 @@ import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.FetchType.LAZY;
 import com.back.global.jpa.Entity.BaseIdAndTime;
+import com.back.shared.market.dto.OrderDto;
+import com.back.shared.market.event.MarketOrderRequestPaymentStartedEvent;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -60,5 +62,24 @@ public class Order extends BaseIdAndTime {
 
   public boolean isPaid() {
     return paymentDate != null;
+  }
+
+  public void requestPayment(long pgPaymentAmount) {
+    markAsRequestPaymentStarted();
+
+    publishEvent(
+      new MarketOrderRequestPaymentStartedEvent(
+        new OrderDto(this),
+        pgPaymentAmount
+      )
+    );
+  }
+
+  private void markAsRequestPaymentStarted() {
+    requestPaymentDate = LocalDateTime.now();
+  }
+
+  public void cancelRequestPayment() {
+    requestPaymentDate = null;
   }
 }

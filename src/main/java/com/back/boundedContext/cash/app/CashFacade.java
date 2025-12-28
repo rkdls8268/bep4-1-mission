@@ -3,6 +3,7 @@ package com.back.boundedContext.cash.app;
 import com.back.boundedContext.cash.domain.CashMember;
 import com.back.boundedContext.cash.domain.Wallet;
 import com.back.shared.cash.dto.CashMemberDto;
+import com.back.shared.market.event.MarketOrderRequestPaymentStartedEvent;
 import com.back.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class CashFacade {
   private final CashSupport cashSupport;
   private final CashCreateWalletUseCase cashCreateWalletUseCase;
   private final CashSyncMemberUseCase cashSyncMemberUseCase;
+  private final CashOrderCompletePaymentUseCase cashOrderCompletePaymentUseCase;
 
 
   @Transactional
@@ -35,5 +37,11 @@ public class CashFacade {
   @Transactional(readOnly = true)
   public Wallet findByHolder(CashMember holder) {
     return cashSupport.findByHolder(holder);
+  }
+
+
+  @Transactional
+  public void handle(MarketOrderRequestPaymentStartedEvent event) {
+    cashOrderCompletePaymentUseCase.handle(event);
   }
 }

@@ -4,6 +4,7 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRES_NE
 import static org.springframework.transaction.event.TransactionPhase.AFTER_COMMIT;
 import com.back.boundedContext.cash.app.CashFacade;
 import com.back.shared.cash.event.CashMemberCreatedEvent;
+import com.back.shared.market.event.MarketOrderRequestPaymentStartedEvent;
 import com.back.shared.member.event.MemberJoinedEvent;
 import com.back.shared.member.event.MemberModifiedEvent;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,11 @@ public class CashEventListener {
   @Transactional(propagation = REQUIRES_NEW)
   public void handle(CashMemberCreatedEvent event) {
     cashFacade.createWallet(event.getCashMemberDto());
+  }
+
+  @TransactionalEventListener(phase = AFTER_COMMIT)
+  @Transactional(propagation = REQUIRES_NEW)
+  public void handle(MarketOrderRequestPaymentStartedEvent event) {
+    cashFacade.handle(event);
   }
 }
