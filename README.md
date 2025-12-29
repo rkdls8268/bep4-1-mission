@@ -26,7 +26,7 @@ DDD란 결합도는 낮추고 응집도를 높일 수 있도록 각 도메인별
 
 ### bounded context 내부를 DDD 형태로 구조화
 ```
-📦 boundedContext
+📦 boundedContext: 도메인. 독립적이고 폐쇄적인 모듈
 ├── 📁 in: 변화의 시작점, 외부의 입력신호에 따라서 어떠한 일을 시작하는 영역
 │   ├── 📁 controller: 외부의 입력 신호를 받아서 처리하는 영역
 │   ├── 📁 eventListener: 이벤트를 받아서 처리하는 영역
@@ -41,6 +41,8 @@ DDD란 결합도는 낮추고 응집도를 높일 수 있도록 각 도메인별
 └── 📁 out: 변화의 결과를 외부에 반환하는 영역
     ├── 📁 repository: 데이터를 저장하고 조회하는 영역
     └── 📁 apiClient: 외부 서비스와 연동하는 영역
+📦 global: infra, config 등의 설정 쪽에 집중
+📦 shared: 공유 자원
 ```
 
 ### RsData 도입

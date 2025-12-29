@@ -163,14 +163,17 @@ public class MarketDataInit {
   public void makeBaseOrders() {
     if (marketFacade.countOrders() > 0) return;
 
+    MarketMember user1Member = marketFacade.findMemberByUsername("user1");
     MarketMember user2Member = marketFacade.findMemberByUsername("user2");
     MarketMember user3Member = marketFacade.findMemberByUsername("user3");
 
+    Cart cart1 = marketFacade.findCartByCustomer(user1Member);
     Cart cart2 = marketFacade.findCartByCustomer(user2Member);
     Cart cart3 = marketFacade.findCartByCustomer(user3Member);
 
-    Order order1 = marketFacade.createOrder(cart2).getData();
-    Order order2 = marketFacade.createOrder(cart3).getData();
+    Order order1 = marketFacade.createOrder(cart1).getData();
+    Order order2 = marketFacade.createOrder(cart2).getData();
+    Order order3 = marketFacade.createOrder(cart3).getData();
   }
 
   @Transactional

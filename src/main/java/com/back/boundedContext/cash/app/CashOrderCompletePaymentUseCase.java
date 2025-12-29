@@ -16,7 +16,7 @@ public class CashOrderCompletePaymentUseCase {
   private final EventPublisher eventPublisher;
 
   public void handle(MarketOrderRequestPaymentStartedEvent event) {
-    Wallet customerWallet = cashSupport.findWalletByHolderId(event.getOrder().getCustomerId()).get();
+    Wallet customerWallet = cashSupport.findWalletByHolderId(event.getOrder().getCustomerId());
     Wallet holdingWallet = cashSupport.findHoldingWallet().get();
 
     if (event.getPgPaymentAmount() > 0) {

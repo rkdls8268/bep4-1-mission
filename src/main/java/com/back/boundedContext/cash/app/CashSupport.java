@@ -27,8 +27,9 @@ public class CashSupport {
   }
 
 
-  public Optional<Wallet> findWalletByHolderId(int holderId) {
-    return walletRepository.findByHolderId(holderId);
+  public Wallet findWalletByHolderId(int holderId) {
+    return walletRepository.findByHolderId(holderId)
+      .orElseThrow(() -> new DomainException("409-2", "존재하지 않는 wallet 입니다."));
   }
 
   public Optional<Wallet> findHoldingWallet() {
