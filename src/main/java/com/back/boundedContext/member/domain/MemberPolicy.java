@@ -2,11 +2,17 @@ package com.back.boundedContext.member.domain;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemberPolicy {
-  private static final int PASSWORD_CHANGE_DAYS = 90;
+  private static int PASSWORD_CHANGE_DAYS;
+
+  @Value("${custom.member.password.changeDays}")
+  public void setPasswordChangeDays(int days) {
+    PASSWORD_CHANGE_DAYS = days;
+  }
 
   // 비밀번호 변경이 필요한 기간을 Duration 객체로 반환
   public Duration getNeedToChangePasswordPeriod() {
