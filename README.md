@@ -1,5 +1,8 @@
 ## DDD & MSA
 
+SHORTCUT
+* [spring batch](.spring_batch.md)
+
 ### DDD
 * Domain Driven Design: 도메인 주도 설계
 * 업무 규칙을 팀의 언어로 경계 안에 모아두는 것
