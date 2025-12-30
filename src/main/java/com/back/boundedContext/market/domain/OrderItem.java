@@ -3,6 +3,7 @@ package com.back.boundedContext.market.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
 import com.back.global.jpa.Entity.BaseIdAndTime;
+import com.back.shared.market.dto.OrderItemDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -34,5 +35,23 @@ public class OrderItem extends BaseIdAndTime {
     this.productName = productName;
     this.price = price;
     this.salePrice = salePrice;
+  }
+
+  public OrderItemDto toDto() {
+    return new OrderItemDto(
+      getId(),
+      getCreateDate(),
+      getModifyDate(),
+      order.getId(),
+      order.getCustomer().getId(),
+      order.getCustomer().getNickname(),
+      product.getSeller().getId(),
+      product.getSeller().getNickname(),
+      product.getId(),
+      productName,
+      price,
+      salePrice,
+      payoutRate
+    );
   }
 }
