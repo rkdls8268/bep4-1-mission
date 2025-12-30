@@ -7,6 +7,7 @@ import com.back.shared.cash.event.CashMemberCreatedEvent;
 import com.back.shared.market.event.MarketOrderRequestPaymentStartedEvent;
 import com.back.shared.member.event.MemberJoinedEvent;
 import com.back.shared.member.event.MemberModifiedEvent;
+import com.back.shared.payout.event.PayoutCompletedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,5 +40,11 @@ public class CashEventListener {
   @Transactional(propagation = REQUIRES_NEW)
   public void handle(MarketOrderRequestPaymentStartedEvent event) {
     cashFacade.completeOrderPayment(event.getOrder(), event.getPgPaymentAmount());
+  }
+
+  @TransactionalEventListener
+  @Transactional(propagation = REQUIRES_NEW)
+  public void handle(PayoutCompletedEvent event) {
+    cashFacade.completePayout(event.getPayout());
   }
 }
