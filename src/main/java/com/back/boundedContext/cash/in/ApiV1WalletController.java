@@ -20,6 +20,6 @@ public class ApiV1WalletController {
   public WalletDto getItemByHolder(
     @PathVariable int holderId
   ) {
-    return new WalletDto(cashFacade.findWalletByHolderId(holderId));
+    return cashFacade.findWalletByHolderId(holderId).toDto();
   }
 }

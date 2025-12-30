@@ -2,7 +2,7 @@ package com.back.boundedContext.post.domain;
 
 import static jakarta.persistence.FetchType.LAZY;
 import com.back.global.jpa.Entity.BaseIdAndTime;
-import com.back.shared.post.dto.CommentDto;
+import com.back.shared.post.dto.PostDto;
 import com.back.shared.post.event.CommentCreatedEvent;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,6 +35,18 @@ public class Post extends BaseIdAndTime {
     this.content = content;
   }
 
+  public PostDto toDto() {
+    return new PostDto(
+      getId(),
+      getCreateDate(),
+      getModifyDate(),
+      getMember().getId(),
+      getMember().getNickname(),
+      getTitle(),
+      getContent()
+    );
+  }
+
   // entity 내부 메서드 케이스
   /**
    * 엔티티에 로직을 두는 경우: 하나의 aggregate root 안에서 끝나는 규칙 및 상태 전이인 경우 선호
@@ -43,7 +55,7 @@ public class Post extends BaseIdAndTime {
   public Comment addComment(PostMember member, String content) {
     Comment comment = new Comment(member, this, content);
     comments.add(comment);
-    publishEvent(new CommentCreatedEvent(new CommentDto(comment)));
+    publishEvent(new CommentCreatedEvent(comment.toDto()));
     return comment;
   }
 

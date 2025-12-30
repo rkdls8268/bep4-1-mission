@@ -18,8 +18,19 @@ public class Member extends SourceMember {
     super(username, password, nickname);
   }
 
+  public MemberDto toDto() {
+    return new MemberDto(
+      getId(),
+      getCreateDate(),
+      getModifyDate(),
+      getUsername(),
+      getNickname(),
+      getActivityScore()
+    );
+  }
+
   public void increaseActivityScore(int amount) {
     setActivityScore(getActivityScore() + amount);
-    publishEvent(new MemberModifiedEvent(new MemberDto(this)));
+    publishEvent(new MemberModifiedEvent(toDto()));
   }
 }

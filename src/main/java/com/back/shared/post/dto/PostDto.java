@@ -1,7 +1,6 @@
 package com.back.shared.post.dto;
 
 
-import com.back.boundedContext.post.domain.Post;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,16 +18,4 @@ public class PostDto {
   private String userName;
   private String title;
   private String content;
-
-  public PostDto(Post post) {
-    this(
-      post.getId(),
-      post.getCreateDate(),
-      post.getModifyDate(),
-      post.getMember().getId(),
-      post.getMember().getNickname(),
-      post.getTitle(),
-      post.getContent()
-    );
-  }
 }

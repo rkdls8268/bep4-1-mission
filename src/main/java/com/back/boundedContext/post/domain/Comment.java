@@ -1,6 +1,7 @@
 package com.back.boundedContext.post.domain;
 
 import com.back.global.jpa.Entity.BaseIdAndTime;
+import com.back.shared.post.dto.CommentDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,5 +27,17 @@ public class Comment extends BaseIdAndTime {
     this.member = member;
     this.post = post;
     this.content = content;
+  }
+
+  public CommentDto toDto() {
+    return new CommentDto(
+      getId(),
+      getCreateDate(),
+      getModifyDate(),
+      member.getId(),
+      post.getId(),
+      member.getNickname(),
+      getContent()
+    );
   }
 }
