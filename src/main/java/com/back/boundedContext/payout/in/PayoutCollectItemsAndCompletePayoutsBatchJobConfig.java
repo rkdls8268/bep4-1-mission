@@ -13,22 +13,24 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-public class PayoutCollectItemsBatchJobConfig {
+public class PayoutCollectItemsAndCompletePayoutsBatchJobConfig {
   private static final int CHUNK_SIZE = 10;
 
   private final PayoutFacade payoutFacade;
 
-  public PayoutCollectItemsBatchJobConfig(PayoutFacade payoutFacade) {
+  public PayoutCollectItemsAndCompletePayoutsBatchJobConfig(PayoutFacade payoutFacade) {
     this.payoutFacade = payoutFacade;
   }
 
   @Bean
-  public Job payoutCollectItemsJob(
+  public Job payoutCollectItemsAndCompletePayoutsJob(
     JobRepository jobRepository,
-    Step payoutCollectItemsStep
+    Step payoutCollectItemsStep,
+    Step payoutCompletePayoutsStep
   ) {
-    return new JobBuilder("payoutCollectItemsJob", jobRepository)
+    return new JobBuilder("payoutCollectItemsAndCompletePayoutsJob", jobRepository)
       .start(payoutCollectItemsStep)
+      .next(payoutCompletePayoutsStep)
       .build();
   }
 
@@ -44,6 +46,23 @@ public class PayoutCollectItemsBatchJobConfig {
         }
 
         // StepExecution 에 처리 건수 기록. batch 메타데이터에 저장
+        contribution.incrementWriteCount(processedCount);
+
+        return RepeatStatus.CONTINUABLE;
+      })
+      .build();
+  }
+
+  @Bean
+  public Step payoutCompletePayoutsStep(JobRepository jobRepository) {
+    return new StepBuilder("payoutCompletePayouts", jobRepository)
+      .tasklet((contribution, chunkContext) -> {
+        int processedCount = payoutFacade.completePayoutsMore(CHUNK_SIZE).getData();
+
+        if (processedCount == 0) {
+          return RepeatStatus.FINISHED;
+        }
+
         contribution.incrementWriteCount(processedCount);
 
         return RepeatStatus.CONTINUABLE;
