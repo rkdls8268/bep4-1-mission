@@ -43,3 +43,5 @@ custom:
     toss:
       payments:
         secretKey: ${TOSS_PAYMENTS_SECRET_KEY:}
+  payout:
+    readyWaitingDays: 14
