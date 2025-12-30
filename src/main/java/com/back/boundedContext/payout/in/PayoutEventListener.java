@@ -38,6 +38,7 @@ public class PayoutEventListener {
   @TransactionalEventListener(phase = AFTER_COMMIT)
   @Transactional(propagation = REQUIRES_NEW)
   public void handle(MarketOrderPaymentCompletedEvent event) {
+    // 주문만 완료된 상태. 구매확정이 되지 않아 아직 정산도 안된 상태
     payoutFacade.addPayoutCandidateItems(event.getOrder());
   }
 }
