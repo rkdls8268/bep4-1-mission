@@ -54,11 +54,20 @@ spring:
 * Processor: 데이터 가공/검증 
 * Writer: 출력 처리
 
-### spring scheduler
+## spring scheduler
 * 작업 스케줄러
 * 지정된 시간 간격이나 특정 시점에 자동으로 실행되어야 하는 작업을 쉽게 구성
 * 멀티스레딩과 비동기 실행을 지원하여 효율적인 백그라운드 작업 처리 제공
 * @EnableScheduling 어노테이션 추가해줘야 함
+
+### Spring 내부에서 실제로 일어나는 일
+1. 애플리케이션 기동
+2. `@EnableScheduling`이 `ScheduledAnnotationBeanPostProcessor` 등록
+3. 모든 Bean 탐색
+4. `@Scheduled` 메서드 발견
+5. 내부 `TaskScheduler`에 cron 트리거 등
+6. 정해진 시간에 Spring이 해당 메서드를 직접 호출
+=> 즉, 개발자가 직접 호출할 필요 없음.
 
 ```java
 // PayoutScheduler.java
