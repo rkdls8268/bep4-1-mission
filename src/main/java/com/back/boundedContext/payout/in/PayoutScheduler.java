@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Profile("!prod")
+@Profile("prod")
 @Component
 @RequiredArgsConstructor
 public class PayoutScheduler {
