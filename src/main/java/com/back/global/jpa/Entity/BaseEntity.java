@@ -1,6 +1,7 @@
 package com.back.global.jpa.Entity;
 
 import com.back.global.config.GlobalConfig;
+import com.back.standard.event.HaveEventName;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public abstract class BaseEntity {
   }
 
   // GlobalConfig 에서 setter 로 초기화해놓은 것을 나중에 entity 에서 getter로 사용할 수 있도록 BaseEntity 에서 만들어 놓음
-  protected void publishEvent(Object event) {
+  protected <E extends HaveEventName> void publishEvent(E event) {
     GlobalConfig.getEventPublisher().publish(event);
   }
   public abstract int getId();
