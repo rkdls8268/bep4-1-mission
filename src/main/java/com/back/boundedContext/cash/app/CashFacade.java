@@ -20,6 +20,7 @@ public class CashFacade {
   private final CashOrderCompletePaymentUseCase cashOrderCompletePaymentUseCase;
   private final CashCompletePayoutUseCase cashCompletePayoutUseCase;
 
+
   @Transactional
   public CashMember syncMember(MemberDto memberDto) {
     return cashSyncMemberUseCase.syncMember(memberDto);
@@ -39,6 +40,7 @@ public class CashFacade {
   public Wallet findByHolder(CashMember holder) {
     return cashSupport.findByHolder(holder);
   }
+
 
   @Transactional
   public void completeOrderPayment(OrderDto order, long pgPaymentAmount) {
